@@ -1,0 +1,11 @@
+{
+    "signal": [
+        { "name": "clock",   "wave": "P...............|...", "node": "....................", "period": 1, },
+        { "name": "reset_n", "wave": "1...............|...", "node": "....................", },
+        { "name": "push",    "wave": "0.....1.0.......|...", "node": "....................", },
+        { "name": "wait_n",  "wave": "0......10.......|...", "node": "....................", },
+        { "name": "data",    "wave": "x.....=.x.......|...", "node": "....................", },
+    ],
+    "head": { "text": [ "tspan", { "font-size": "medium", "font-weight": "bold", }, "Data Transfer", ] },
+    "foot": { "text": [ "tspan", { "font-size": "medium", "font-weight": "bold", }, ], "tock": 1 },
+}

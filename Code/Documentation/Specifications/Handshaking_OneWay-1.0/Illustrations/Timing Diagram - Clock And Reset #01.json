@@ -1,0 +1,11 @@
+{
+    "signal": [
+        { "name": "clock",   "wave": "P...............|...", "node": "....................", "period": 1, },
+        { "name": "reset_n", "wave": "1..0.1..........|...", "node": "....................", },
+        { "name": "push",    "wave": "x..0..=.........|...", "node": "....................", },
+    ],
+    "edge": [
+    ],
+    "head": { "text": [ "tspan", { "font-size": "medium", "font-weight": "bold", }, "Clock and Reset", ] },
+    "foot": { "text": [ "tspan", { "font-size": "medium", "font-weight": "bold", }, ], "tock": 1 },
+}
