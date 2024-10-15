@@ -14,4 +14,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-PROJECT(Kernels VERSION ${Template-FDK_VERSION} LANGUAGES NONE)
+PROJECT(Designs VERSION ${Template-FDK_VERSION} LANGUAGES NONE)
+
+ADD_SUBDIRECTORY(Template_PM-1.0)

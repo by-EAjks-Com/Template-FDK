@@ -14,8 +14,4 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-PROJECT(Specifications VERSION ${Template-FDK_VERSION} LANGUAGES NONE)
-
-ADD_SUBDIRECTORY(HandShaking_Credit-1.0)
-ADD_SUBDIRECTORY(HandShaking_OneWay-1.0)
-ADD_SUBDIRECTORY(HandShaking_TwoWay-1.0)
+PROJECT(Boards VERSION ${Template-FDK_VERSION} LANGUAGES NONE)
