@@ -24,7 +24,7 @@ SET(IP_XACT_NAME ${PROJECT_NAME_TOLOWER})
 SET(IP_XACT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
 
 SET(PROJECT_OUTPUT_DIR ${CMAKE_BINARY_DIR}/Repositories-Generated/${IP_XACT_VENDOR}/${IP_XACT_LIBRARY}/${IP_XACT_NAME}-${IP_XACT_VERSION})
-SET(LIBRARY_NAME ${PROJECT_NAME}_v${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR})
+SET(LIBRARY_NAME ${PROJECT_NAME_TOLOWER}_v${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR})
 
 CONFIGURE_FILE(
     ${PROJECT_SOURCE_DIR}/LICENSE
@@ -63,8 +63,6 @@ SET(
 ADD_CUSTOM_TARGET(
     ${PROJECT_NAME}-${PROJECT_VERSION} ALL
         DEPENDS
-            Handshaking_OneWay-1.0
-            Handshaking_TwoWay-1.0
             ${PROJECT_OUTPUT_DIR}/component.xml
         VERBATIM)
 
@@ -97,6 +95,8 @@ ADD_CUSTOM_COMMAND(
                 ${PROJECT_OUTPUT_DIR}
                 ${LIBRARY_NAME}
     DEPENDS
+        Handshaking_OneWay-1.0
+        Handshaking_TwoWay-1.0
         ${Template-FDK_SOURCE_DIR}/Miscellaneous/Encryption/script_copy_then_encrypt_ieee_1735_2014.tcl
         ${Template-FDK_SOURCE_DIR}/Miscellaneous/Encryption/ieee_1735_2014_public_keys.v
         ${Template-FDK_SOURCE_DIR}/Miscellaneous/Encryption/ieee_1735_2014_public_keys.vhd
@@ -128,10 +128,11 @@ ADD_CUSTOM_TARGET(
                     ${CMAKE_BINARY_DIR}/Repositories-Generated/${IP_XACT_VENDOR}/interfaces
         DEPENDS
             ${PROJECT_NAME}-${PROJECT_VERSION}
+            ${PROJECT_OUTPUT_DIR}/component.xml
             ${PROJECT_SOURCE_TESTS}
             ${PROJECT_SOURCE_DIR}/etc/script_simulate.tcl
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         COMMENT "Simulating ${PROJECT_NAME}-${PROJECT_VERSION}"
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         VERBATIM)
 
 ADD_CUSTOM_TARGET(
@@ -155,9 +156,10 @@ ADD_CUSTOM_TARGET(
                     ${CMAKE_BINARY_DIR}/Repositories-Generated/${IP_XACT_VENDOR}/interfaces
         DEPENDS
             ${PROJECT_NAME}-${PROJECT_VERSION}
+            ${PROJECT_OUTPUT_DIR}/component.xml
             ${PROJECT_SOURCE_DIR}/etc/script_synthesize.tcl
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         COMMENT "Synthesizing ${PROJECT_NAME}-${PROJECT_VERSION}"
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         VERBATIM)
 
 INSTALL(

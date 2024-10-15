@@ -38,7 +38,9 @@ set_property \
             kintexu Production \
             kintexuplus Production \
             virtexu Production \
-            virtexuplus Production]] \
+            virtexuplus Production \
+            virtexuplus58g Production \
+            virtexuplusHBM Production]] \
     -objects $core
 
 # IP-XACT

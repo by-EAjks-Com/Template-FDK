@@ -104,6 +104,7 @@ set_property \
 launch_simulation -step all -simset [get_filesets sim_1] -mode behavioral
 
 set wg_device_under_test [add_wave_group {Device Under Test}]
+
 add_wave /testcases/i_testbench/i_template_vhdl_v1_0/system_i/i_device_under_test/U0 -into $wg_device_under_test
 
 run all

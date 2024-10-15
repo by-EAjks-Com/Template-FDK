@@ -58,7 +58,9 @@ set_property \
 set ip_run [create_ip_run [get_ips device_under_test]]
 
 launch_run $ip_run
+
 wait_on_run $ip_run
+
 open_run $ip_run
 
 report_cdc -name cdc
