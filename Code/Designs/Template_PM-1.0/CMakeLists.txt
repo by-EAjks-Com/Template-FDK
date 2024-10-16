@@ -41,7 +41,7 @@ ADD_CUSTOM_COMMAND(
         ${PROJECT_BINARY_DIR}/Assembly/${IP_XACT_NAME}.gen/sources_1/bd/system/hdl/system_wrapper.vhd
     COMMAND
         vivado
-            -mode gui
+            -mode batch
             -quiet
             -source ${PROJECT_SOURCE_DIR}/etc/script_assemble.tcl
             -nojournal
@@ -78,7 +78,7 @@ ADD_CUSTOM_COMMAND(
         ${PROJECT_BINARY_DIR}/Synthesis/${IP_XACT_NAME}.runs/synth_1/system_wrapper.dcp
     COMMAND
         vivado
-            -mode gui
+            -mode batch
             -quiet
             -source ${PROJECT_SOURCE_DIR}/etc/script_synthesize.tcl
             -nojournal
@@ -117,7 +117,7 @@ ADD_CUSTOM_COMMAND(
         ${PROJECT_BINARY_DIR}/Implementation/${IP_XACT_NAME}.xpr
     COMMAND
         vivado
-            -mode gui
+            -mode batch
             -quiet
             -source ${PROJECT_SOURCE_DIR}/etc/script_implement.tcl
             -nojournal
