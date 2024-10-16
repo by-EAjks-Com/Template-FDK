@@ -46,7 +46,7 @@ set_property \
         strategy {Performance_Retiming}] \
     -objects [get_runs impl_1]
 
-launch_run [get_runs impl_1] -jobs 64
+launch_run [get_runs impl_1] -jobs 8 -to_step write_bitstream
 
 wait_on_run [get_runs impl_1]
 

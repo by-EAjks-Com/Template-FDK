@@ -46,7 +46,7 @@ set_property \
         strategy {Flow_PerfOptimized_high}] \
     -objects [get_runs synth_1]
 
-launch_run [get_runs synth_1] -jobs 64
+launch_run [get_runs synth_1] -jobs 8
 
 wait_on_run [get_runs synth_1]
 

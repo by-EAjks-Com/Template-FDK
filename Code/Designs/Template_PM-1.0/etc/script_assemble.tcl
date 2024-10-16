@@ -55,12 +55,16 @@ update_ip_catalog -rebuild
 
 create_bd_design system
 
+# Let's create all ports.
+
+create_bd_port -dir O HBM_CATTRIP
+
 # Let's create all instances.
 
 create_bd_cell \
     -type ip \
     -vlnv xilinx.com:ip:qdma:5.0 \
-    i_qdma
+    i_dma_subsystem
 
 apply_bd_automation \
     -rule xilinx.com:bd_rule:qdma \
@@ -70,7 +74,24 @@ apply_bd_automation \
         bar_size Disable \
         lane_width X8 \
         link_speed {16.0 GT/s (PCIe Gen 4)}] \
-    -objects [get_bd_cells i_qdma]
+    -objects [get_bd_cells i_dma_subsystem]
+
+# Let's instantiate
+# the HBM controller
+
+create_bd_cell \
+    -type ip \
+    -vlnv xilinx.com:ip:xlconstant:1.1 \
+    c_tie2zero_x1
+
+set_property \
+    -dict [list \
+        config.width 1 \
+        config.val 0] \
+    -objects [get_bd_cells c_tie2zero_x1]
+
+# Let's instantiate
+# the other IP cores
 
 create_bd_cell \
     -type ip \
@@ -94,25 +115,36 @@ set_property \
 
 # Let's connect the various reset networks
 
+# Let's connect
+# the other internal resets
+
 connect_bd_net \
-    [get_bd_pins i_qdma/axi_aresetn] \
+    [get_bd_pins i_dma_subsystem/axi_aresetn] \
     [get_bd_pins i_axi_bram_controller/s_axi_aresetn]
 
 # Let's connect the various clock networks
 
+# Let's connect
+# the other internal clocks
+
 connect_bd_net \
-    [get_bd_pins i_qdma/axi_aclk] \
+    [get_bd_pins i_dma_subsystem/axi_aclk] \
     [get_bd_pins i_axi_bram_controller/s_axi_aclk]
 
 # Let's connect the remaining interfaces|signals of all instances
 
-connect_bd_intf_net [get_bd_intf_pins i_qdma/M_AXI] [get_bd_intf_pins i_axi_bram_controller/S_AXI]
+# Let's connect
+# the other internal interfaces|signals
+
+connect_bd_intf_net [get_bd_intf_pins i_dma_subsystem/M_AXI] [get_bd_intf_pins i_axi_bram_controller/S_AXI]
 connect_bd_intf_net [get_bd_intf_pins i_axi_bram_controller/BRAM_PORTA] [get_bd_intf_pins i_axi_bram_devices/BRAM_PORTA]
 connect_bd_intf_net [get_bd_intf_pins i_axi_bram_controller/BRAM_PORTB] [get_bd_intf_pins i_axi_bram_devices/BRAM_PORTB]
 
+connect_bd_net [get_bd_pins c_tie2zero_x1/dout] [get_bd_ports HBM_CATTRIP]
+
 # Let's map all instances in the various memory address spaces
 
-create_bd_addr_seg -offset {0x0000000000000000} -range {0x0000000000010000} [get_bd_addr_spaces /i_qdma/M_AXI] [get_bd_addr_segs /i_axi_bram_controller/S_AXI/Mem0] a_i_qdma_m_axi_i_axi_bram_controller_s_axi_mem0
+create_bd_addr_seg -offset {0x0000000000000000} -range {0x0000000000010000} [get_bd_addr_spaces /i_dma_subsystem/M_AXI] [get_bd_addr_segs /i_axi_bram_controller/S_AXI/Mem0] a_i_dma_subsystem_m_axi_i_axi_bram_controller_s_axi_mem0
 
 regenerate_bd_layout
 
@@ -133,3 +165,8 @@ generate_target all [get_files [file join $work_directory $ip_xact_name.srcs sou
 make_wrapper -files [get_files [file join $work_directory $ip_xact_name.srcs sources_1 bd system system.bd]] -top
 
 add_files -fileset [get_filesets sources_1] -norecurse [file join $work_directory $ip_xact_name.gen sources_1 bd system hdl system_wrapper.vhd]
+
+set_property \
+    -dict [list \
+        target_constrs_file [file join $repositories_boards Xilinx ALVEO_U50.xdc]] \
+    -objects [get_filesets constrs_1]
