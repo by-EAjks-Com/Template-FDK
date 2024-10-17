@@ -60,6 +60,7 @@ ADD_CUSTOM_COMMAND(
                 0 # QUICK_COMPILE
                 1 # INCLUDE_DEBUG
     DEPENDS
+        ${CMAKE_SOURCE_DIR}/Repositories/Boards/Xilinx/Alveo_U50.xdc
         ${PROJECT_SOURCE_DIR}/etc/script_assemble.tcl
     COMMENT "Assembling ${PROJECT_NAME}-${PROJECT_VERSION}"
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
