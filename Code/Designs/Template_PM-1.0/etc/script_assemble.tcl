@@ -168,5 +168,5 @@ add_files -fileset [get_filesets sources_1] -norecurse [file join $work_director
 
 set_property \
     -dict [list \
-        target_constrs_file [file join $repositories_boards Xilinx ALVEO_U50.xdc]] \
+        target_constrs_file [file join $repositories_boards Xilinx Alveo_U50.xdc]] \
     -objects [get_filesets constrs_1]
